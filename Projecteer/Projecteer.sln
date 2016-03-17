@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projecteer.Core", "Projecte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projecteer.Data", "Projecteer.Data\Projecteer.Data.csproj", "{09E507BD-48E1-4945-BB5B-11C753E530D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projecteer.API.Test", "Projecteer.API.Test\Projecteer.API.Test.csproj", "{C6D6C44D-09CA-4164-907F-524477B6EDD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{09E507BD-48E1-4945-BB5B-11C753E530D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09E507BD-48E1-4945-BB5B-11C753E530D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09E507BD-48E1-4945-BB5B-11C753E530D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D6C44D-09CA-4164-907F-524477B6EDD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D6C44D-09CA-4164-907F-524477B6EDD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D6C44D-09CA-4164-907F-524477B6EDD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D6C44D-09CA-4164-907F-524477B6EDD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
