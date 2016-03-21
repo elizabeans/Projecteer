@@ -30,7 +30,7 @@ namespace Projecteer.API
         {
             Mapper.CreateMap<Comment, CommentsModel>();
             Mapper.CreateMap<Message, MessagesModel>();
-            Mapper.CreateMap<Participation, ParticipationsModel>();
+            Mapper.CreateMap<Participant, ParticipantsModel>();
             Mapper.CreateMap<Post, PostsModel>();
             Mapper.CreateMap<Project, ProjectsModel>();
             Mapper.CreateMap<ProjecteerUser, ProjecteerUsersModel>();

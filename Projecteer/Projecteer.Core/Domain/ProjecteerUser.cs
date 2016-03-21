@@ -34,7 +34,8 @@ namespace Projecteer.Core.Domain
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
-        public virtual ICollection<Participation> Participations { get; set; }
+        public virtual ICollection<Participant> Participants { get; set; }
+        public virtual ICollection<ParticipantTag> ParticipantTags { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Request> Requests { get; set; }
         public virtual ICollection<UserTag> UserTags { get; set; }

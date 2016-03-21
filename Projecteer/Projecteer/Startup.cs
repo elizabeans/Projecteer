@@ -70,7 +70,8 @@ namespace Projecteer.API
             // Repositories
             container.Register<ICommentRepository, CommentRepository>();
             container.Register<IMessageRepository, MessageRepository>();
-            container.Register<IParticipationRepository, ParticipationRepository>();
+            container.Register<IParticipantRepository, ParticipantRepository>();
+            container.Register<IParticipantTagRepository, ParticipantTagRepository>();
             container.Register<IPostRepository, PostRepository>();
             container.Register<IProjectRepository, ProjectRepository>();
             container.Register<IProjecteerUserRepository, ProjecteerUserRepository>();

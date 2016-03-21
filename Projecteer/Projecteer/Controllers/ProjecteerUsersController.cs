@@ -8,17 +8,21 @@ using Projecteer.Core.Domain;
 using Projecteer.Core.Infrastructure;
 using Projecteer.Core.Models;
 using Projecteer.Core.Repository;
+using System.Linq;
 
 namespace Projecteer.API.Controllers
 {
+    // [Authorize]
     public class ProjecteerUsersController : ApiController
     {
         private IProjecteerUserRepository _projecteerUserRepository;
+        private IProjectRepository _projectRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjecteerUsersController(IProjecteerUserRepository projecteerUserRepository, IUnitOfWork unitOfWork)
+        public ProjecteerUsersController(IProjecteerUserRepository projecteerUserRepository, IProjectRepository projectRepository, IUnitOfWork unitOfWork)
         {
             _projecteerUserRepository = projecteerUserRepository;
+            _projectRepository = projectRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -56,6 +60,18 @@ namespace Projecteer.API.Controllers
 
             return Ok(Mapper.Map<ProjecteerUsersModel>(dbProjecteerUser));
         }
+        
+        // GET: api/ProjecteerUsers/5/projects
+        [Route("api/users/{userId}/projects")]
+        public IEnumerable<ProjectsModel> GetProjectsForUser(int userId)
+        {
+            var user = _projecteerUserRepository.GetById(userId);
+
+            var projects = user.Participants.Where(p => p.AcceptedDate.HasValue)
+                                            .Select(p => p.Project);
+
+            return Mapper.Map<IEnumerable<ProjectsModel>>(projects);
+        }
 
         // PUT: api/ProjecteerUsers/5
         [ResponseType(typeof(void))]
@@ -72,7 +88,7 @@ namespace Projecteer.API.Controllers
             }
 
             ProjecteerUser dbProjecteerUser = _projecteerUserRepository.GetById(id);
-            //dbProjecteerUser.Update(User);
+            dbProjecteerUser.Update(projecteerUser);
 
             _projecteerUserRepository.Update(dbProjecteerUser);
 
@@ -107,7 +123,7 @@ namespace Projecteer.API.Controllers
             }
 
             ProjecteerUser dbProjecteerUser = _projecteerUserRepository.GetFirstOrDefault(u => u.UserName == User.Identity.Name);
-            //dbProjecteerUser.Update(user);
+            dbProjecteerUser.Update(user);
 
             try
             {

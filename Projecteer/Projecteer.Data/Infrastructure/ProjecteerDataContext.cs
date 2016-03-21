@@ -18,7 +18,7 @@ namespace Projecteer.Data.Infrastructure
 
         public IDbSet<Comment> Comments { get; set; }
         public IDbSet<Message> Messages { get; set; }
-        public IDbSet<Participation> Participations { get; set; }
+        public IDbSet<Participant> Participants { get; set; }
         public IDbSet<Post> Posts { get; set; }
         public IDbSet<Project> Projects { get; set; }
         public IDbSet<ProjecteerUser> Users { get; set; }
@@ -51,7 +51,7 @@ namespace Projecteer.Data.Infrastructure
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ProjecteerUser>()
-                .HasMany(p => p.Participations)
+                .HasMany(p => p.Participants)
                 .WithRequired(p => p.ProjecteerUser)
                 .HasForeignKey(p => p.ProjecteerUserId);
 
@@ -65,8 +65,20 @@ namespace Projecteer.Data.Infrastructure
                 .WithRequired(u => u.ProjecteerUser)
                 .HasForeignKey(u => u.ProjecteerUserId);
 
+            modelBuilder.Entity<ProjecteerUser>()
+                .HasMany(p => p.ParticipantTags)
+                .WithRequired(p => p.ProjecteerUser)
+                .HasForeignKey(p => p.ProjecteerUserId)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Project>()
-                .HasMany(p => p.Participations)
+                .HasMany(p => p.ParticipantTags)
+                .WithRequired(p => p.Project)
+                .HasForeignKey(p => p.ProjectId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.Participants)
                 .WithRequired(p => p.Project)
                 .HasForeignKey(p => p.ProjectId);
 
@@ -105,6 +117,11 @@ namespace Projecteer.Data.Infrastructure
                 .WithRequired(u => u.Tag)
                 .HasForeignKey(u => u.TagId);
 
+            modelBuilder.Entity<Tag>()
+                .HasMany(t => t.ParticipantTags)
+                .WithRequired(p => p.Tag)
+                .HasForeignKey(p => p.TagId);
+
             modelBuilder.Entity<ProjecteerUser>()
                 .HasMany(u => u.Roles)
                 .WithRequired(ur => ur.User)
@@ -115,6 +132,9 @@ namespace Projecteer.Data.Infrastructure
                 .WithRequired(ur => ur.Role)
                 .HasForeignKey(ur => ur.RoleId);
 
+            modelBuilder.Entity<ParticipantTag>()
+                .HasKey(pt => new { pt.ProjectId, pt.ProjecteerUserId, pt.TagId});
+
             modelBuilder.Entity<ProjectTag>()
                 .HasKey(pt => new { pt.ProjectId, pt.TagId });
 
@@ -124,7 +144,7 @@ namespace Projecteer.Data.Infrastructure
             modelBuilder.Entity<Request>()
                 .HasKey(r => new { r.ProjectId, r.ProjecteerUserId });
 
-            modelBuilder.Entity<Participation>()
+            modelBuilder.Entity<Participant>()
                 .HasKey(p => new { p.ProjectId, p.ProjecteerUserId });
 
             modelBuilder.Entity<UserRole>()

@@ -149,6 +149,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\ProjecteerUsersController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Infrastructure\ProjecteerAuthorizationServerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

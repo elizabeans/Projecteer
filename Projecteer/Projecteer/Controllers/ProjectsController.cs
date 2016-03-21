@@ -11,16 +11,21 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-namespace Projecteer.Controllers
+namespace Projecteer.API.Controllers
 {
+    [Authorize]
     public class ProjectsController : ApiController
     {
         private IProjectRepository _projectRepository;
+        private IProjecteerUserRepository _userRepository;
+        private IParticipantRepository _participantRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProjectsController(IProjectRepository projectRepository, IUnitOfWork unitOfWork)
+        public ProjectsController(IProjectRepository projectRepository, IProjecteerUserRepository userRepository, IParticipantRepository participantRepository, IUnitOfWork unitOfWork)
         {
             _projectRepository = projectRepository;
+            _userRepository = userRepository;
+            _participantRepository = participantRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -88,22 +93,37 @@ namespace Projecteer.Controllers
 
         // POST: api/Projects
         [ResponseType(typeof(ProjectsModel))]
-        public IHttpActionResult PostProject(ProjectsModel project)
+        public IHttpActionResult Post(ProjectsModel model)
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var dbProject = new Project();
+            // create project
+            var dbProject = new Project(model);
+
             _projectRepository.Add(dbProject);
 
             _unitOfWork.Commit();
 
-            project.ProjectId = dbProject.ProjectId;
+            // get the currently logged in user
+            var currentUser = _userRepository.GetFirstOrDefault(u => u.UserName == User.Identity.Name);
 
-            return CreatedAtRoute("DefaultApi", new { id = project.ProjectId }, project);
+            // create first participant
+            var participant = new Participant
+            {
+                ProjectId = dbProject.ProjectId,
+                ProjecteerUserId = currentUser.Id
+            };
+
+            // save participant to database
+            _participantRepository.Add(participant);
+            _unitOfWork.Commit();
+
+            return Ok(Mapper.Map<ProjectsModel>(dbProject));
         }
+
 
         // DELETE: api/Projects/5
         [ResponseType(typeof(ProjectsModel))]
