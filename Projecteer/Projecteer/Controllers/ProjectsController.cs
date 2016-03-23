@@ -121,6 +121,7 @@ namespace Projecteer.API.Controllers
             _participantRepository.Add(participant);
             _unitOfWork.Commit();
 
+
             return Ok(Mapper.Map<ProjectsModel>(dbProject));
         }
 

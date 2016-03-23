@@ -1,0 +1,18 @@
+﻿<div class="container">
+    <form class="register">
+        <p>Register</p>
+
+        <input type="text" placeholder="First Name" ng-model="registration.FirstName" />
+        <input type="text" placeholder="Last Name" ng-model="registration.LastName" />
+        <input type="text" placeholder="Username" ng-model="registration.UserName" />
+        <input type="email" placeholder="Email Address" ng-model="registration.EmailAddress" />
+        <input type="password" placeholder="Password" ng-model="registration.Password" />
+        <input type="password" placeholder="Confirm Password" ng-model="registration.ConfirmPassword" />
+
+        <button ng-click="register()">Register</button>
+
+        <h4>Already registered? <a href="#/login">Login here</a></h4>
+    </form>
+
+    <pre>{{ registration || json}}</pre>
+</div>

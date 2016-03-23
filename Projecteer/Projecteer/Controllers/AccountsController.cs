@@ -15,7 +15,7 @@ namespace Projecteer.API.Controllers
         }
 
         [AllowAnonymous]
-        [Route("api/accounts/register")]
+        [Route("api/accounts/register/users")]
         public async Task<IHttpActionResult> RegisterUser(RegistrationModel registration)
         {
             if(!ModelState.IsValid)

@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-namespace Projecteer.Controllers
+namespace Projecteer.API.Controllers
 {
     [Authorize]
     public class TagsController : ApiController

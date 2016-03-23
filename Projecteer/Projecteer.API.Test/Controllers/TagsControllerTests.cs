@@ -4,7 +4,7 @@ using Moq;
 using Projecteer.Core.Repository;
 using Projecteer.Core.Domain;
 using Projecteer.Core.Infrastructure;
-using Projecteer.Controllers;
+using Projecteer.API.Controllers;
 using System.Web.Http.Results;
 using Projecteer.Core.Models;
 using System.Web.Http;

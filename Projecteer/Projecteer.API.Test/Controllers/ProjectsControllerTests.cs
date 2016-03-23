@@ -8,6 +8,7 @@ using Projecteer.API.Controllers;
 using System.Web.Http.Results;
 using Projecteer.Core.Models;
 using System.Web.Http;
+using System.Linq.Expressions;
 
 namespace Projecteer.API.Test.Controllers
 {
@@ -32,44 +33,54 @@ namespace Projecteer.API.Test.Controllers
 
         }
 
-        //[TestMethod]
-        //public void PostShouldReturnOkWithContent()
-        //{
-        //    var _mockProjectRepo = new Mock<IProjectRepository>();
-        //    var _mockUserRepo = new Mock<IProjecteerUserRepository>();
-        //    var _mockParticipantRepo = new Mock<IParticipantRepository>();
-        //    var _mockUnitOfWork = new Mock<IUnitOfWork>();
+        [TestMethod]
+        public void PostShouldReturnOkWithContent()
+        {
+            WebApiConfig.CreateMaps();
+            var _mockProjectRepo = new Mock<IProjectRepository>();
+            var _mockUserRepo = new Mock<IProjecteerUserRepository>();
+            var _mockParticipantRepo = new Mock<IParticipantRepository>();
+            var _mockUnitOfWork = new Mock<IUnitOfWork>();
 
-        //    //ProjecteerUser mockUser = new ProjecteerUser
-        //    //{
-        //    //    Id = "userid",
-        //    //    UserName = "emaraan",
-        //    //    PasswordHash = "password",
-        //    //    SecurityStamp = "security",
-        //    //    FirstName = "Elizabeth",
-        //    //    LastName = "Maraan",
-        //    //    Email = "emaraan@gmail.com"
-        //    //};
+            _mockUserRepo.Setup(m => m.GetFirstOrDefault(It.IsAny<Expression<Func<ProjecteerUser, bool>>>()))
+                         .Returns(new ProjecteerUser
+                         {
+                             Id = "userid",
+                             UserName = "emaraan",
+                             PasswordHash = "password",
+                             SecurityStamp = "security",
+                             FirstName = "Elizabeth",
+                             LastName = "Maraan",
+                             Email = "emaraan@gmail.com"
+                         });
 
-        //    var controller = new ProjectsController(_mockProjectRepo.Object, _mockUserRepo.Object, _mockParticipantRepo.Object, _mockUnitOfWork.Object);
-            
-        //    // Act
-        //    IHttpActionResult actionResult = controller.Post(new ProjectsModel
-        //    {
-        //        ProjectId = 1,
-        //        Name = "The Cool Project Name Generator",
-        //        Description = "Make a generator that generates cool project names",
-        //        CreatedDate = new DateTime(2014, 02, 20),
-        //        ModifiedDate = new DateTime(2014, 03, 19)
-        //    });
+            Participant participant = new Participant
+            {
+                ProjecteerUserId = "userid",
+                ProjectId = 10
+            };
 
-        //    var createdResult = actionResult as CreatedAtRouteNegotiatedContentResult<ProjectsModel>;
+            _mockParticipantRepo.Setup(m => m.Add(participant));
 
-        //    // Assert
-        //    Assert.IsNotNull(createdResult);
-        //    Assert.AreEqual("DefaultApi", createdResult.RouteName);
-        //    Assert.AreEqual(10, createdResult.RouteValues["id"]);
-        //}
+            var controller = new ProjectsController(_mockProjectRepo.Object, _mockUserRepo.Object, _mockParticipantRepo.Object, _mockUnitOfWork.Object);
+
+            // Act
+            IHttpActionResult actionResult = controller.Post(new ProjectsModel
+            {
+                ProjectId = 10,
+                Name = "The Cool Project Name Generator",
+                Description = "Make a generator that generates cool project names",
+                CreatedDate = new DateTime(2014, 02, 20),
+                ModifiedDate = new DateTime(2014, 03, 19)
+            });
+
+            var createdResult = actionResult as CreatedAtRouteNegotiatedContentResult<ProjectsModel>;
+
+            // Assert
+            Assert.IsNotNull(createdResult);
+            Assert.AreEqual("DefaultApi", createdResult.RouteName);
+            Assert.AreEqual(10, createdResult.RouteValues["id"]);
+        }
 
         [TestMethod]
         public void DeleteProjectShouldReturnOk()
