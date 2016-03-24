@@ -1,1 +1,8 @@
-﻿
+﻿<form>
+    <input type="text" class="form-control" placeholder="Project Name" ng-model="project.Name" />
+    <input type="text" placeholder="Enter Description" ng-model="project.Description" />
+</form>
+
+<md-button ng-click="saveProject()">Save</md-button>
+
+<pre> {{ project | json }}</pre>

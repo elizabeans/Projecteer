@@ -11,7 +11,7 @@ namespace Projecteer.Core.Domain
     {
         public Project()
         {
-
+            CreatedDate = DateTime.Now;
         }
 
         public Project(ProjectsModel project)

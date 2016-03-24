@@ -1,8 +1,13 @@
-﻿angular.module('projecteer').factory('AccountResource', function (apiUrl, $resource) {
-    return $resource(apiUrl + '/ProjecteerUser/:ProjecteerUserId', { ProjecteerUserId: '@ProjecteerUserId' },
-        {
-            'update': {
-                method: 'PUT'
-            }
-        });
-});
+﻿angular.module('projecteer')
+    .factory('AccountResource', [
+        '$resource',
+        'apiUrl',
+        function ($resource, apiUrl) {
+
+            return $resource(apiUrl + '/ProjecteerUser/:ProjecteerUserId', { ProjecteerUserId: '@ProjecteerUserId' },
+            {
+                'update': {
+                    method: 'PUT'
+                }
+            });
+}]);
