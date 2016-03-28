@@ -11,7 +11,7 @@ namespace Projecteer.Core.Domain
     {
         public Project()
         {
-            CreatedDate = DateTime.Now;
+
         }
 
         public Project(ProjectsModel project)
@@ -24,14 +24,13 @@ namespace Projecteer.Core.Domain
             ProjectId = project.ProjectId;
             Name = project.Name;
             Description = project.Description;
-            ModifiedDate = DateTime.Now;
         }
 
         public int ProjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public virtual ICollection<Participant> Participants { get; set; }
         public virtual ICollection<ParticipantTag> ParticipantTags { get; set; }

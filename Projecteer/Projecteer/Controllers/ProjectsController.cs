@@ -30,7 +30,6 @@ namespace Projecteer.API.Controllers
         }
 
         // GET: api/Projects
-        [AllowAnonymous]
         public IEnumerable<ProjectsModel> GetProjects()
         {
             return Mapper.Map<IEnumerable<ProjectsModel>>(
@@ -39,7 +38,6 @@ namespace Projecteer.API.Controllers
         }
 
         // GET: api/Projects/5
-        [AllowAnonymous]
         [ResponseType(typeof(ProjectsModel))]
         public IHttpActionResult GetProject(int id)
         {
@@ -93,7 +91,7 @@ namespace Projecteer.API.Controllers
 
         // POST: api/Projects
         [ResponseType(typeof(ProjectsModel))]
-        public IHttpActionResult Post(ProjectsModel model)
+        public IHttpActionResult Post(ProjectsModel project)
         {
             if(!ModelState.IsValid)
             {
@@ -101,8 +99,8 @@ namespace Projecteer.API.Controllers
             }
 
             // create project
-            var dbProject = new Project(model);
-
+            var dbProject = new Project(project);
+            dbProject.Update(project);
             _projectRepository.Add(dbProject);
 
             _unitOfWork.Commit();
@@ -117,12 +115,14 @@ namespace Projecteer.API.Controllers
                 ProjecteerUserId = currentUser.Id
             };
 
+
+
             // save participant to database
             _participantRepository.Add(participant);
             _unitOfWork.Commit();
 
 
-            return Ok(Mapper.Map<ProjectsModel>(dbProject));
+            return CreatedAtRoute("DefaultApi", new { id = project.ProjectId }, project);
         }
 
 
