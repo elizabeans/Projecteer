@@ -1,4 +1,4 @@
-﻿angular.module('projecteer', ['ngResource', 'ui.router', 'LocalStorageModule', 'ngMaterial']);
+﻿angular.module('projecteer', ['ngResource', 'ui.router', 'LocalStorageModule']);
 
 angular.module('projecteer').value('apiUrl', 'http://localhost:63171/api');
 
@@ -12,9 +12,10 @@ angular.module('projecteer').config(function ($stateProvider, $urlRouterProvider
         .state('register', { url: '/register', templateUrl: '/templates/register.html', controller: 'RegisterController' })
         .state('login', { url: '/login', templateUrl: '/templates/login.html', controller: 'LoginController' })
 
-        .state('app', { url: '/app', templateUrl: '/templates/nav.html', controller: 'NavController' })
-            .state('app.create', { url: '/create', templateUrl: '/templates/create.html', controller: 'CreateController' });
-
+        .state('app', { url: '/app', templateUrl: '/templates/app.html', controller: 'AppController' })
+            .state('app.dashboard', { url: '/dashboard', templateUrl:'templates/dashboard.html', controller: 'DashboardController'})
+            .state('app.project', { url: '/project', abstract: true, template: '<ui-view>' })
+                .state('app.project.create', { url: '/new', templateUrl: '/templates/project.create.html', controller: 'ProjectCreateController' });
 });
 
 angular.module('projecteer').run(function (AuthenticationService) {

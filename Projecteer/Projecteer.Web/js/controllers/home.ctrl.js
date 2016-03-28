@@ -1,3 +1,7 @@
-﻿angular.module('projecteer').controller('HomeController', function ($scope) {
+﻿angular.module('projecteer')
+    .controller('HomeController', [
+        '$scope',
+        function ($scope) {
 
-});
+        }]
+    );
