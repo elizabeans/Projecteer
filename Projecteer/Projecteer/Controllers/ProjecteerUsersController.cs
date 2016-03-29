@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Projecteer.API.Controllers
 {
-    // [Authorize]
+    [Authorize]
     public class ProjecteerUsersController : ApiController
     {
         private IProjecteerUserRepository _projecteerUserRepository;
