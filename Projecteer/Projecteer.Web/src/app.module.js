@@ -51,6 +51,10 @@ angular.module('projecteer').config(function ($stateProvider, $urlRouterProvider
             url: '/detail/:id',
             templateUrl: '/src/project/projectdetail/projectdetail.html',
             controller: 'ProjectDetailController'
+        }).state('app.project.user', {
+            url: '/userprojects',
+            templateUrl: '/src/project/userprojects/userprojects.html',
+            controller: 'UserProjectsController'
         }).state('app.user', {
             url: '/user',
             templateUrl: '/src/user/user_profile.html',

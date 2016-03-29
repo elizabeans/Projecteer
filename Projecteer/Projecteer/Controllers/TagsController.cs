@@ -108,6 +108,24 @@ namespace Projecteer.API.Controllers
             return CreatedAtRoute("DefaultApi", new { id = tag.TagId }, tag);
         }
 
+        // POST: api/project/2/tag/1
+        public IHttpActionResult AddTagToProject(int projectId, int tagId)
+        {
+            var project = _projectRepository.GetById(projectId);
+            var tag = _tagRepository.GetById(tagId);
+
+            project.ProjectTags.Add(new ProjectTag
+            {
+                Tag = tag
+            });
+
+            _projectRepository.Update(project);
+
+            _unitOfWork.Commit();
+
+            return Ok();
+        }
+
         // DELETE: api/Tags/5
         [ResponseType(typeof(TagsModel))]
         public IHttpActionResult DeleteTag(int id)

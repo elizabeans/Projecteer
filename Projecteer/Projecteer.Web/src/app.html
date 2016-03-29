@@ -16,7 +16,7 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#/app/user">Profile</a></li>
-                <li><a href="#">My Projects</a></li>
+                <li><a href="#/app/project/userprojects">My Projects</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li><a href="#" ng-click="logout()">Logout</a></li>
             </ul>
@@ -46,6 +46,11 @@
                     <div class="form-group">
                         <label for="project-description">Description</label>
                         <input type="text" class="form-control" id="project-description" style="height: 300px; line-height: 5px;" ng-model="project.Description">
+                    </div>
+                    <div class="form-group">
+                        <label for="roles">Project Roles</label>
+                            <input type="text" class="form-control" id="roles">
+                            <button class="btn btn-info">Add Role</button>
                     </div>
                 </form>
 

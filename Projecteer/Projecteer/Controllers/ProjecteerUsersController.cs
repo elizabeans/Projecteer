@@ -62,7 +62,7 @@ namespace Projecteer.API.Controllers
         }
         
         // GET: api/ProjecteerUsers/5/projects
-        [Route("api/users/{userId}/projects")]
+        [Route("api/projecteerusers/{userId}/projects")]
         public IEnumerable<ProjectsModel> GetProjectsForUser(int userId)
         {
             var user = _projecteerUserRepository.GetById(userId);

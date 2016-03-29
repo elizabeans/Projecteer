@@ -16,16 +16,20 @@ namespace Projecteer.API.Controllers
     [Authorize]
     public class ProjectsController : ApiController
     {
-        private IProjectRepository _projectRepository;
-        private IProjecteerUserRepository _userRepository;
-        private IParticipantRepository _participantRepository;
-        private IUnitOfWork _unitOfWork;
+        private readonly IProjectRepository _projectRepository;
+        private readonly IProjecteerUserRepository _userRepository;
+        private readonly IParticipantRepository _participantRepository;
+        private readonly ITagRepository _tagRepository;
+        private readonly IProjectTagRepository _projectTagRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProjectsController(IProjectRepository projectRepository, IProjecteerUserRepository userRepository, IParticipantRepository participantRepository, IUnitOfWork unitOfWork)
+        public ProjectsController(IProjectRepository projectRepository, IProjecteerUserRepository userRepository, IParticipantRepository participantRepository, ITagRepository tagRepository, IProjectTagRepository projectTagRepository, IUnitOfWork unitOfWork)
         {
             _projectRepository = projectRepository;
             _userRepository = userRepository;
             _participantRepository = participantRepository;
+            _tagRepository = tagRepository;
+            _projectTagRepository = projectTagRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -115,7 +119,7 @@ namespace Projecteer.API.Controllers
                 ProjecteerUserId = currentUser.Id
             };
 
-
+            
 
             // save participant to database
             _participantRepository.Add(participant);

@@ -1,5 +1,5 @@
 ﻿angular.module('projecteer')
-    .controller('ProjectDetailController', [
+    .controller('UserProjectsController', [
     '$scope',
     '$http',
     '$state',
